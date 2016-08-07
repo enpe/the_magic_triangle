@@ -1,0 +1,3 @@
+perm=(6, 2, 1, 7, 8, 5, 4, 0, 3)
+rot=1
+cards=[('BG', 'HO', 'HG'), ('HO', 'BG', 'HG'), ('HW', 'HG', 'BG'), ('BW', 'BG', 'HW'), ('BW', 'BO', 'HO'), ('BO', 'HO', 'BG'), ('HO', 'BO', 'BG'), ('HW', 'HO', 'BW'), ('BW', 'HO', 'BG')]
