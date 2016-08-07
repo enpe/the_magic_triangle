@@ -1,87 +1,144 @@
-import itertools
+"""
+ The crazy triangle:
 
-#  3 - Body white
-#  2 - Body green
-#  1 - Body orange
-# -1 - Head orange
-# -2 - Head green
-# -3 - Head white
-triangles = [
-	( 3, -1, -3),
-	( 2, -2, -3),
-	(-1, -2,  2),
-	( 2, -1,  3),
-	( 2, -1,  1),
-	( 2,  2, -3),
-	(-1,  1,  3),
-	(-1,  2, -2),
-	(-1,  2,  1)]
+            /0\  
+           /   \ 
+          /     \
+          -------       
+        /1\     /3\    
+       /   \   /   \  
+      /     \2/     \  
+      ------- ------- 
+    /4\     /6\     /8\    
+   /   \   /   \   /   \ 
+  /     \5/     \7/     \ 
+  ------- ------- ------- 
 
+
+ Edge labels:
+                   c
+      /X\       -------    X = [1, 2, 4, 5, 7, 9]
+   a /   \ b    \     /    Y = [3, 6, 8]
+    /     \    b \   / a
+    -------       \Y/   
+       c
+
+
+ Cards:
+  * HO - Head orange
+  * HG - Head green
+  * HW - Head white
+  * BO - Body orange
+  * BG - Body green
+  * BW - Body white
+"""
+
+# from multiprocessing.dummy import Pool # Threads
+from multiprocessing import Pool # Processes
+import itertools as it
+import time
+
+cards = [
+	("HO", "BW", "HW"), # 0.
+	("HG", "BG", "HW"), # 1.
+	("BG", "HG", "HO"), # 2.
+	("HO", "BG", "BW"), # 3.
+	("BO", "BG", "HO"), # 4.
+	("BO", "HO", "BG"), # 5.
+	("HG", "BG", "HO"), # 6.
+	("BW", "BG", "HW"), # 7.
+	("HO", "BW", "BO")] # 8.
+
+#
+# Checks:
+#
 checks = [
-	((0, 1),(2, 1)),
-	((1, 2),(2, 2)),
-	((1, 1),(5, 1)),
-	((2, 0),(3, 0)),
-	((3, 1),(7, 1)),
-	((4, 2),(5, 2)),
-	((5, 0),(6, 0)),
-	((6, 2),(7, 2)),
-	((7, 0),(8, 0))]
+	((0,2),(2,2)), # ((1,c),(3,c)),
+	((1,1),(2,1)), # ((2,b),(3,b)),
+	((1,2),(5,2)), # ((2,c),(6,c)),
+	((2,0),(3,0)), # ((3,a),(4,a)),
+	((3,2),(7,2)), # ((4,c),(8,c)),
+	((4,1),(5,1)), # ((5,b),(6,b)),
+	((5,0),(6,0)), # ((6,a),(7,a)),
+	((6,1),(7,1)), # ((7,b),(8,b)),
+	((7,0),(8,0))] # ((8,a),(9,a))]
 
+permutations = [x for x in it.permutations(range(len(cards)))]
+rotations = [x for x in it.product([0,1,2], repeat=len(cards))]
 
-def check_configuration(triangles):
+def is_valid_triangle(cards):
+
 	for c in checks:
-		t0 = triangles[c[0][0]]
-		t1 = triangles[c[1][0]]
-		is_valid = (t0[c[0][1]] + t1[c[1][1]]) == 0
-		if not is_valid:
+		t0 = cards[c[0][0]]
+		s0 = t0[c[0][1]]
+
+		t1 = cards[c[1][0]]
+		s1 = t1[c[0][1]]
+
+		is_match = s0[0] != s1[0] and s0[1] == s1[1]
+		if not is_match:
 			return False
 
 	return True
 
 
-def shift(iterable, count):
-	"""Shift elements left (neg. values) or right (pos. values)
+def rotate_card(card, count):
+	"""Rotate a card CCW (neg. values) or CW (pos. values) in multiples of 120 degrees.
 
-	    shift((1,2,3), -2) -> (3,1,2)
-	    shift((1,2,3),  2) -> (2,3,1)
-	"""
-	
-	# Convert left shifts (neg. values) to their equivalent right shifts
+	rotate((1,2,3), -2) -> (3,1,2)
+	rotate((1,2,3),  2) -> (2,3,1)
+
+Rotations:
+
+	count = 0           1           2
+	        (no rot.)   (120 deg)   (240 deg)
+	        *
+	       / \         / \         / \  
+	      /   \       /   \       /   \ 
+	     /     \     /     \     /     \
+	     -------     -------*   *-------"""
+
+	# Convert CCW rotations (neg. values) to equivalent CW rorations
 	# (avoids problems with negative indices)
-	n = len(iterable)
+	n = len(card)
 	while count < 0:
 		count += n
 	
-	shifted = [0] * len(iterable)
+	rotated = [0] * len(card)
 	for i in range(n):
-		shifted[(i + count) % n] = iterable[i]
+		rotated[(i + count) % n] = card[i]
 
-	return tuple(shifted)
+	return tuple(rotated)
 
+def process_permutation(index):
+	print "%6i (%6.2f%%)" % (index, float(index+1) / float(len(permutations)) * 100.,)
 
-def solve():
-	spatial_configurations = [x for x in itertools.permutations(range(9))]
-	rotational_configurations = [x for x in itertools.product([0,1,2], repeat=len(triangles))]
+	results = []
+	perm = [cards[i] for i in permutations[index]]
 
-	valid_configurations = []
-	for s in range(len(spatial_configurations)):
-		print "s = %i (%6.2f%%), found: %i" % (s + 1, float(s + 1)/len(spatial_configurations), len(valid_configurations))
-		triangles_s = [triangles[i] for i in spatial_configurations[s]]
-		
-		for r in range(len(rotational_configurations)):
-			triangles_r = []
-			for i in range(len(triangles)):
-				x = shift(triangles_s[i], rotational_configurations[r][i])
-				triangles_r.append(shift(triangles_s[i], rotational_configurations[r][i]))
-			
-			is_valid = check_configuration(triangles_r)
-			if is_valid:
-				print "valid configuration: s = %s, r = %s" % (s, r)
-				valid_configurations.append((s, r))
+	for r in range(len(rotations)):
+		rot = [rotate_card(perm[i], rotations[r][i]) for i in range(len(perm))]
+		is_valid = is_valid_triangle(rot)
 
-	print valid_configurations
+		if is_valid:
+			print "Found a triangle: p = %s, r = %s" % (index, r)
+			print permutations[index]
+			print rot
+			with open('p%06i_r%05i.txt' % (index, r), 'wb') as logfile:
+				logfile.write('perm=%s\nrot=%s\ncards=%s\n' % (permutations[index], rotations[r][i], rot))
+			results.append((index, r, permutations[index], rotations[r][i], rot))
 
+	return results
 
 if __name__ == "__main__":
-	solve()
+	pool = Pool()
+	indices = range(len(permutations))
+	indices = indices[7500:]
+	# indices = range(5000) # Debug
+	results = pool.map(process_permutation, indices, 1)
+	pool.close()
+	pool.join()
+
+	for res in results:
+		if len(res) > 0:
+			print res
