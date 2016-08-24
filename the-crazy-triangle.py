@@ -1,5 +1,5 @@
 """
- The crazy triangle:
+ The magic triangle:
 
             /0\  
            /   \ 
@@ -39,6 +39,7 @@ import itertools as it
 import time
 
 cards = [
+	# a     b     c
 	("HO", "BW", "HW"), # 0.
 	("HG", "BG", "HW"), # 1.
 	("BG", "HG", "HO"), # 2.
@@ -87,6 +88,7 @@ def is_valid_triangle(cards):
 		t1 = cards[c[1][0]]
 		s1 = t1[c[0][1]]
 
+		# Reminder: body parts must be different while colors must match
 		is_match = s0[0] != s1[0] and s0[1] == s1[1]
 		if not is_match:
 			return False
@@ -95,22 +97,23 @@ def is_valid_triangle(cards):
 
 
 def rotate_card(card, count):
-	"""Rotate a card CCW (neg. values) or CW (pos. values) in multiples of 120 degrees.
+	"""Rotate a card CCW (neg. values) or CW (pos. values) in multiples 
+	of 120 degrees.
 
 	rotate((1,2,3), -2) -> (3,1,2)
 	rotate((1,2,3),  2) -> (2,3,1)
 
-Rotations:
+	Rotations:
 
-	count = 0           1           2
-	        (no rot.)   (120 deg)   (240 deg)
-	        *
-	       / \         / \         / \  
-	      /   \       /   \       /   \ 
-	     /     \     /     \     /     \
-	     -------     -------*   *-------"""
+		count = 0           1           2
+		        (no rot.)   (120 deg)   (240 deg)
+		        *
+		       / \         / \         / \  
+		      /   \       /   \       /   \ 
+		     /     \     /     \     /     \
+		     -------     -------*   *-------"""
 
-	# Convert CCW rotations (neg. values) to equivalent CW rorations
+	# Convert CCW rotations (neg. values) to equivalent CW rotations
 	# (avoids problems with negative indices)
 	n = len(card)
 	while count < 0:
@@ -123,6 +126,9 @@ Rotations:
 	return tuple(rotated)
 
 def process_permutation(index):
+	"""Checks all possible rotations of the triangles of the current permutation."""
+
+	# Status update for the user
 	print "%6i (%6.2f%%)" % (index, float(index+1) / float(len(permutations)) * 100.,)
 
 	results = []
@@ -137,7 +143,9 @@ def process_permutation(index):
 			print permutations[index]
 			print rot
 			with open('p%06i_r%05i.txt' % (index, r), 'wb') as logfile:
-				logfile.write('perm=%s\nrot=%s\ncards=%s\n' % (permutations[index], rotations[r][i], rot))
+				logfile.write('perm=%s\nrot=%s\ncards=%s\n\n' % (permutations[index], rotations[r][i], rot))
+				logfile.write(render_triangle_ascii(index, r))
+				logfile.write('\n')
 			results.append((index, r, permutations[index], rotations[r][i], rot))
 
 	return results
