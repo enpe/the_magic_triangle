@@ -131,6 +131,44 @@ def process_permutation(index):
 	return results
 
 if __name__ == "__main__":
+def render_triangle_ascii(p, r):
+	"""Render a configuration as (human-readable) ASCII art."""
+	print "p = %6i, r = %5i" % (p, r)
+	labels = [('%s' % (i+1), ' ', ' ') for i in permutations[p]]
+	labels = [rotate_card(labels[i], rotations[r][i]) for i in range(len(labels))]
+	labels = [j for i in labels for j in i]
+
+	shuffle =   [
+		 0,  1,  2, # 0
+		 3,  7,  8, # 1
+		 9,  5,  4, # 2
+		 6, 10, 11, # 3
+		12, 19, 20, # 4
+		21, 14, 13, # 5
+		15, 22, 23, # 6
+		24, 17, 16, # 7
+		18, 25, 26] # 8
+
+	l = [' '] * len(labels)
+	for i in range(len(labels)):
+		l[shuffle[i]] = labels[i]
+	labels = l
+
+	triangle = """            /%s\ 
+           /   \ 
+          /%s   %s\ 
+          -------
+        /%s\%s   %s/%s\ 
+       /   \   /   \ 
+      /%s   %s\%s/%s   %s\ 
+      ------- -------
+    /%s\%s   %s/%s\%s   %s/%s\ 
+   /   \   /   \   /   \ 
+  /%s   %s\%s/%s   %s\%s/%s   %s\ 
+  ------- ------- -------\n""" % tuple(labels)
+
+	return triangle
+
 	pool = Pool()
 	indices = range(len(permutations))
 	indices = indices[7500:]
