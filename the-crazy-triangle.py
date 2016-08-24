@@ -50,23 +50,35 @@ cards = [
 	("HO", "BW", "BO")] # 8.
 
 #
-# Checks:
+# Lists of all
+#   * permutations of the nine triangles inside the large triangle
+#   * possible rotations of the triangles (0, 120, 240 deg.) for each
+#     of the permutations.
 #
-checks = [
-	((0,2),(2,2)), # ((1,c),(3,c)),
-	((1,1),(2,1)), # ((2,b),(3,b)),
-	((1,2),(5,2)), # ((2,c),(6,c)),
-	((2,0),(3,0)), # ((3,a),(4,a)),
-	((3,2),(7,2)), # ((4,c),(8,c)),
-	((4,1),(5,1)), # ((5,b),(6,b)),
-	((5,0),(6,0)), # ((6,a),(7,a)),
-	((6,1),(7,1)), # ((7,b),(8,b)),
-	((7,0),(8,0))] # ((8,a),(9,a))]
-
+# Note: a single list of all possible combinations won't be constructed
+#       explicitly because it is quite large. Nested for-loops will be
+#       used instead.
+#
 permutations = [x for x in it.permutations(range(len(cards)))]
 rotations = [x for x in it.product([0,1,2], repeat=len(cards))]
 
 def is_valid_triangle(cards):
+	"""Returns true if a configuration is valid, i.e. if all neighboring
+	triangles match. A pair of triangles match, if the body parts 
+	printed on the neighboring sides of the triangles are complements 
+	(head and body), i.e. if they are not equal, and if the colors are
+	the same."""
+
+	checks = [
+		((0,2),(2,2)), # ((1,c),(3,c)),
+		((1,1),(2,1)), # ((2,b),(3,b)),
+		((1,2),(5,2)), # ((2,c),(6,c)),
+		((2,0),(3,0)), # ((3,a),(4,a)),
+		((3,2),(7,2)), # ((4,c),(8,c)),
+		((4,1),(5,1)), # ((5,b),(6,b)),
+		((5,0),(6,0)), # ((6,a),(7,a)),
+		((6,1),(7,1)), # ((7,b),(8,b)),
+		((7,0),(8,0))] # ((8,a),(9,a))]
 
 	for c in checks:
 		t0 = cards[c[0][0]]
