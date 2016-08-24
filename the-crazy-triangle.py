@@ -142,7 +142,6 @@ def process_permutation(index):
 
 	return results
 
-if __name__ == "__main__":
 def render_triangle_ascii(p, r):
 	"""Render a configuration as (human-readable) ASCII art."""
 	print "p = %6i, r = %5i" % (p, r)
@@ -181,10 +180,14 @@ def render_triangle_ascii(p, r):
 
 	return triangle
 
+
+def solve():
+	"""Create a pool of workers. Each worker will process one 
+	permutations of the triangles at the time until all permutations
+	have been processed."""
+
 	pool = Pool()
 	indices = range(len(permutations))
-	indices = indices[7500:]
-	# indices = range(5000) # Debug
 	results = pool.map(process_permutation, indices, 1)
 	pool.close()
 	pool.join()
@@ -192,3 +195,6 @@ def render_triangle_ascii(p, r):
 	for res in results:
 		if len(res) > 0:
 			print res
+
+if __name__ == "__main__":
+	solve()
