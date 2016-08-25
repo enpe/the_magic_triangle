@@ -38,7 +38,6 @@ where
 
 The triangles are indexed as shown below:
 
-
 	                / \    
 	               /   \   
 	              /0a 0b\  
@@ -46,15 +45,15 @@ The triangles are indexed as shown below:
 	            /    0c   \ 
 	            ----------- 
 	          / \    1c   / \     
-	         /   \   7   /   \    
-	        /2a 2b\1b 1a/8b 8a\   
-	       /   8   \   /   1   \ 
+	         /   \   1   /   \    
+	        /2a 2b\1b 1a/8a 8b\   
+	       /   2   \   /   8   \ 
 	      /    2c   \ /    8c   \ 
 	      ----------- ----------- 
 	    / \    3c   / \    6c   / \     
-	   /   \   4   /   \   3   /   \    
+	   /   \   3   /   \   6   /   \    
 	  /4a 4b\3b 3a/5a 5b\6b 6a/7a 7b\   
-	 /   2   \   /   6   \   /   5   \ 
+	 /   4   \   /   5   \   /   7   \ 
 	/    4c   \ /    5c   \ /    7c   \ 
 	----------- ----------- ----------- 
 
