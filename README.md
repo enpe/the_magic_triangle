@@ -15,17 +15,24 @@ parts of the figures on neighbouring triangles match.
 
 The following triangles come with the game (cf. the image above):
 
-| Triangle  |  a  |  b  |  c  |
-|----------:|-----|-----|-----|
-|         0 |  HO |  BW |  HW |
-|         1 |  HG |  BG |  HW |
-|         2 |  BG |  HG |  HO |
-|         3 |  HO |  BG |  BW |
-|         4 |  BO |  BG |  HO |
-|         5 |  BO |  HO |  BG |
-|         6 |  HG |  BG |  HO |
-|         7 |  BW |  BG |  HW |
-|         8 |  HO |  BW |  BO |
+	                / \                 |                 / \    
+	               /   \                |                /   \   
+	              /HO BW\               |               /a   b\  
+	             /   0   \              |              /   0   \ 
+	            /    HW   \             |             /    c    \ 
+	            -----------             |             ----------- 
+	          / \    HW   / \           |           / \    c    / \     
+	         /   \   1   /   \          |          /   \   1   /   \    
+	        /BG HG\BG HG/HO BW\         |         /a   b\b   a/a   b\   
+	       /   2   \   /   8   \        |        /   2   \   /   8   \ 
+	      /    HO   \ /    BO   \       |       /    c    \ /    c    \ 
+	      ----------- -----------       |       ----------- ----------- 
+	    / \    BW   / \    HO   / \     |     / \    c    / \    c    / \     
+	   /   \   3   /   \   6   /   \    |    /   \   3   /   \   6   /   \    
+	  /BO BG\BG HO/BO HO\BG HG/BW BG\   |   /4a 4b\b   a/a   b\b   a/a   b\   
+	 /   4   \   /   5   \   /   7   \  |  /   4   \   /   5   \   /   7   \ 
+	/    HO   \ /    BG   \ /    HW   \ | /    c    \ /    c    \ /    c    \ 
+	----------- ----------- ----------- | ----------- ----------- ----------- 
 
 where
 
@@ -35,27 +42,6 @@ where
 * BO -- body orange
 * BG -- body green
 * BW -- body white
-
-The triangles are indexed as shown below:
-
-	                / \    
-	               /   \   
-	              /0a 0b\  
-	             /   0   \ 
-	            /    0c   \ 
-	            ----------- 
-	          / \    1c   / \     
-	         /   \   1   /   \    
-	        /2a 2b\1b 1a/8a 8b\   
-	       /   2   \   /   8   \ 
-	      /    2c   \ /    8c   \ 
-	      ----------- ----------- 
-	    / \    3c   / \    6c   / \     
-	   /   \   3   /   \   6   /   \    
-	  /4a 4b\3b 3a/5a 5b\6b 6a/7a 7b\   
-	 /   4   \   /   5   \   /   7   \ 
-	/    4c   \ /    5c   \ /    7c   \ 
-	----------- ----------- ----------- 
 
 The solver uses [backtracking][3] in order to find the solutions. Given
 a set containing nine triangles, a total of 362880 permutations exist to
