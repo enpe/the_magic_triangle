@@ -1,9 +1,8 @@
 # The Magic Triangle
 
-This project presents a simple solver (brute-force) for an old puzzle
-published by [Heye puzzle], which I recently came across. Apparently,
-the game is available in different flavors ([triangles][1],
-[squares][2]).
+This project presents a simple solver for an old puzzle published by
+[Heye puzzle], which I recently came across. Apparently, the game is
+available in different flavors ([triangles][1], [squares][2]).
 
 ![Snoopy - The Magic Triangle, Heye](doc/snoopy-the-magic-triangle.jpg)
 
@@ -18,17 +17,17 @@ The following triangles come with the game (cf. the image above):
 
 | Triangle  |  a  |  b  |  c  |
 |----------:|-----|-----|-----|
-|         1 |  HO |  BW |  HW |
-|         2 |  HG |  BG |  HW |
-|         3 |  BG |  HG |  HO |
-|         4 |  HO |  BG |  BW |
-|         5 |  BO |  BG |  HO |
-|         6 |  BO |  HO |  BG |
-|         7 |  HG |  BG |  HO |
-|         8 |  BW |  BG |  HW |
-|         9 |  HO |  BW |  BO |
+|         0 |  HO |  BW |  HW |
+|         1 |  HG |  BG |  HW |
+|         2 |  BG |  HG |  HO |
+|         3 |  HO |  BG |  BW |
+|         4 |  BO |  BG |  HO |
+|         5 |  BO |  HO |  BG |
+|         6 |  HG |  BG |  HO |
+|         7 |  BW |  BG |  HW |
+|         8 |  HO |  BW |  BO |
 
-where the following notations is used:
+where
 
 * HO -- head orange
 * HG -- head green
@@ -37,55 +36,57 @@ where the following notations is used:
 * BG -- body green
 * BW -- body white
 
-The solver will use a brute-force approach, i.e. it will try and test
-all possible combinations in order to find the solution. So, given nine
-triangles, a total of 362880 permutations exist to form a large
-triangle. For each of these (spatial) permutations, every triangle can
-be rotated in one of three ways (0, 120, 240 degrees), which amounts to
-19683 possible combinations. That means, approximately 7.1e9 different
-configurations will have to be evaluated.
+The triangles are indexed as shown below:
 
-![9 checks per configuration are required](doc/triangle-checks.png)
 
-For each of the configurations above, nine pairs of neighboring
-triangles are tested. These pairs are represented by edges connecting
-the nodes in the above figure. The labels on the edges denote the sides
-of neighboring triangles (`a`, `b`, `c`) that need to be tested. A test
-is valid if one of the neighboring triangle has a head of figure printed
-on it while a body printed on the other triangle and both are of the
-same color.
+	                / \    
+	               /   \   
+	              /0a 0b\  
+	             /   0   \ 
+	            /    0c   \ 
+	            ----------- 
+	          / \    1c   / \     
+	         /   \   7   /   \    
+	        /2a 2b\1b 1a/8b 8a\   
+	       /   8   \   /   1   \ 
+	      /    2c   \ /    8c   \ 
+	      ----------- ----------- 
+	    / \    3c   / \    6c   / \     
+	   /   \   4   /   \   3   /   \    
+	  /4a 4b\3b 3a/5a 5b\6b 6a/7a 7b\   
+	 /   2   \   /   6   \   /   5   \ 
+	/    4c   \ /    5c   \ /    7c   \ 
+	----------- ----------- ----------- 
+
+The solver uses [backtracking][3] in order to find the solutions. Given
+a set containing nine triangles, a total of 362880 permutations exist to
+form a large triangle. For each of these (spatial) permutations, every
+triangle can be rotated in one of three ways (0, 120, 240 degrees),
+which amounts to 19683 possible combinations. That means, all in all
+approximately 7.1e9 different possible configurations exist.
+Backtracking helps to discard most of these (possible but wrong)
+configurations.
+
+When evaluating one of the configurations above, nine pairs of
+neighboring triangles are tested. A test is valid if one of the
+neighboring triangle has a head of figure printed on it while a body
+printed on the other triangle and both are of the same color.
+
+According to the publisher of the game, two solutions exist. The solver
+will find six solutions, though. That is because each of the two
+solutions can be rotated into three different position.
 
 # Usage
 
 Just run
 
-	$ python ./the-magic-triangle.py
-
-and wait (it took ~12h on my computer).
-
-The solutions will be stored into text files of the form
-`p119410_r11467.txt`, where the first part denotes the `p`-th
-permutation and the second part denotes the `r`-th configuration of the
-rotations. Inside the file will be an ASCII representation of the
-solution, e.g.
-
-	          /2\ 
-	         /   \ 
-	        /     \ 
-	        -------
-	      /9\     /1\ 
-	     /   \   /   \ 
-	    /     \7/     \ 
-	    ------- -------
-	  /3\     /8\     /6\ 
-	 /   \   /   \   /   \ 
-	/     \5/     \4/     \  (<- not a solution)
-	------- ------- -------
+	$ python ./the_magic_triangle.py
 
 ----
 
-For the impatient, the solutions can be found [here](doc/solutions.txt).
+For the impatient, the solutions can also be found [here](doc/solutions.txt).
 
 [1]: http://www.google.de/search?q=heye+magische+dreieck&prmd=ivns&source=lnms&tbm=isch
 [2]: http://heye-puzzle.de/kategorie/crazy-9/
+[3]: https://en.wikipedia.org/wiki/Backtracking
 [Heye puzzle]: http://heye-puzzle.de
