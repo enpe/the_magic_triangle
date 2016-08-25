@@ -146,9 +146,11 @@ def output(c):
 	"""Returns string containing a configuration in a human-readablea form."""
 
 	# Debug
+	# s = ""
+	# d = ""
 	# labels = ('0a', '0b',  '0', '0c',
 	# 	      '1c',  '1', '2a', '2b',
-	# 	      '1b', '1a', '8b', '8a',
+	# 	      '1b', '1a', '8a', '8b',
 	# 	       '2',  '8', '2c', '8c',
 	# 	      '3c', '6c',  '3',  '6',
 	# 	      '4a', '4b', '3b', '3a',
@@ -159,7 +161,7 @@ def output(c):
 	d = [card[0] for card in c]
 	labels = (s[0][0], s[0][1], d[0],    s[0][2],
 		      s[1][2], d[1],    s[2][0], s[2][1],
-		      s[1][1], s[1][0], s[8][1], s[8][0],
+		      s[1][1], s[1][0], s[8][0], s[8][1],
 		      d[2],    d[8],    s[2][2], s[8][2],
 		      s[3][2], s[6][2], d[3],    d[6],
 		      s[4][0], s[4][1], s[3][1], s[3][0],
@@ -270,6 +272,5 @@ def backtrack(c):
 
 
 if __name__ == "__main__":
-	deck_size = len(deck)
-	c = [None] * deck_size
+	c = [None] * len(deck)
 	backtrack(c)

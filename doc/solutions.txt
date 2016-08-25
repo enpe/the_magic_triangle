@@ -9,7 +9,7 @@ deck   = [('HO', 'BW', 'HW'), ('BG', 'HW', 'BW'), ('HO', 'BW', 'BO'), ('BO', 'BG
             ----------- 
           / \    BW   / \     
          /   \   7   /   \    
-        /HO BW\HW BG/BG HG\   
+        /HO BW\HW BG/HG BG\   
        /   8   \   /   1   \ 
       /    BO   \ /    HW   \ 
       ----------- ----------- 
@@ -31,7 +31,7 @@ deck   = [('HO', 'BG', 'HG'), ('HO', 'BO', 'BG'), ('BG', 'HO', 'HG'), ('BW', 'HO
             ----------- 
           / \    BG   / \     
          /   \   4   /   \    
-        /BG HO\BO HO/HO BO\   
+        /BG HO\BO HO/BO HO\   
        /   6   \   /   8   \ 
       /    HG   \ /    BW   \ 
       ----------- ----------- 
@@ -53,7 +53,7 @@ deck   = [('HO', 'BG', 'BW'), ('HO', 'BW', 'HW'), ('BG', 'HW', 'BW'), ('HG', 'BG
             ----------- 
           / \    HW   / \     
          /   \   0   /   \    
-        /BG HW\BW HO/BG BO\   
+        /BG HW\BW HO/BO BG\   
        /   7   \   /   4   \ 
       /    BW   \ /    HO   \ 
       ----------- ----------- 
@@ -75,7 +75,7 @@ deck   = [('HO', 'BG', 'BO'), ('BG', 'BW', 'HO'), ('BG', 'HW', 'HG'), ('HW', 'BW
             ----------- 
           / \    HO   / \     
          /   \   3   /   \    
-        /BG HW\BW BG/BG HG\   
+        /BG HW\BW BG/HG BG\   
        /   1   \   /   6   \ 
       /    HG   \ /    HO   \ 
       ----------- ----------- 
@@ -97,7 +97,7 @@ deck   = [('BG', 'HO', 'HG'), ('HW', 'HG', 'BG'), ('HO', 'BG', 'HG'), ('BO', 'HO
             ----------- 
           / \    BG   / \     
          /   \   1   /   \    
-        /HO BG\HG HW/BG BW\   
+        /HO BG\HG HW/BW BG\   
        /   2   \   /   7   \ 
       /    HG   \ /    HW   \ 
       ----------- ----------- 
@@ -119,7 +119,7 @@ deck   = [('HO', 'BW', 'BO'), ('BG', 'BO', 'HO'), ('BG', 'HO', 'BO'), ('BW', 'HW
             ----------- 
           / \    HO   / \     
          /   \   5   /   \    
-        /BG HO\BO BG/HO HG\   
+        /BG HO\BO BG/HG HO\   
        /   4   \   /   2   \ 
       /    BO   \ /    BG   \ 
       ----------- ----------- 
