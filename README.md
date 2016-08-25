@@ -4,7 +4,7 @@ This project presents a simple solver for an old puzzle published by
 [Heye puzzle], which I recently came across. Apparently, the game is
 available in different flavors ([triangles][1], [squares][2]).
 
-![Snoopy - The Magic Triangle, Heye](doc/snoopy-the-magic-triangle.jpg)
+![Snoopy - The Magic Triangle, Heye](doc/snoopy_the_magic_triangle.jpg)
 
 The version of puzzle used here consists of nine equilateral triangles
 with lower and upper parts of figures printed on them. The objective is
