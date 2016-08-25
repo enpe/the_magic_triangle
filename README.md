@@ -84,7 +84,7 @@ solution, e.g.
 
 ----
 
-For the impatient, the solutions can be found [here](doc/solutions.md).
+For the impatient, the solutions can be found [here](doc/solutions.txt).
 
 [1]: http://www.google.de/search?q=heye+magische+dreieck&prmd=ivns&source=lnms&tbm=isch
 [2]: http://heye-puzzle.de/kategorie/crazy-9/
