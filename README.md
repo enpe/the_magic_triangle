@@ -65,7 +65,7 @@ solutions can be rotated into three different position.
 
 Just run
 
-	$ python ./the_magic_triangle.py
+	$ python ./the_magic_triangle.py deck_of_cards.csv edge_matches.csv
 
 ----
 

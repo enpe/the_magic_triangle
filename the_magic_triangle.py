@@ -1,6 +1,7 @@
 """The Magic Triangle"""
 
 import csv
+import sys
 
 def rotate(card, count):
 	"""Rotate a card CCW (neg. values) or CW (pos. values) in multiples 
@@ -224,9 +225,9 @@ def read_csv(filename):
 if __name__ == "__main__":
 	# Read the set of the playing cards of the game and the set of checks required to determine 
 	# valid solutions.
-	deck = read_csv('deck_of_cards.csv')
-	edge_matches = [[int(j) for j in i] for i in read_csv('edge_matches.csv')] # Convert str -> int
-	assert len(deck) > 0 and len(edge_matches) > 0
+	deck = read_csv(sys.argv[1])
+	edge_matches = [[int(j) for j in i] for i in read_csv(sys.argv[2])] # Convert str -> int
+	assert len(deck) == 9 and len(edge_matches) == 9
 
 	# Start the search.
 	config = [None] * len(deck)
