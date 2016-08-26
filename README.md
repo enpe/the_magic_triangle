@@ -13,26 +13,29 @@ parts of the figures on neighbouring triangles match.
 
 # Approach
 
-The following triangles come with the game (cf. the image above):
+The following triangles come with the game:
 
 	                / \                 |                 / \    
 	               /   \                |                /   \   
 	              /HO BW\               |               /a   b\  
-	             /   0   \              |              /   0   \ 
+	             /       \              |              /   0   \ 
 	            /    HW   \             |             /    c    \ 
 	            -----------             |             ----------- 
 	          / \    HW   / \           |           / \    c    / \     
-	         /   \   1   /   \          |          /   \   1   /   \    
+	         /   \       /   \          |          /   \   1   /   \    
 	        /BG HG\BG HG/HO BW\         |         /a   b\b   a/a   b\   
-	       /   2   \   /   8   \        |        /   2   \   /   8   \ 
+	       /       \   /       \        |        /   2   \   /   8   \ 
 	      /    HO   \ /    BO   \       |       /    c    \ /    c    \ 
 	      ----------- -----------       |       ----------- ----------- 
 	    / \    BW   / \    HO   / \     |     / \    c    / \    c    / \     
-	   /   \   3   /   \   6   /   \    |    /   \   3   /   \   6   /   \    
-	  /BO BG\BG HO/BO HO\BG HG/BW BG\   |   /4a 4b\b   a/a   b\b   a/a   b\   
-	 /   4   \   /   5   \   /   7   \  |  /   4   \   /   5   \   /   7   \ 
+	   /   \       /   \       /   \    |    /   \   3   /   \   6   /   \    
+	  /BO BG\BG HO/BO HO\BG HG/BW BG\   |   /a   b\b   a/a   b\b   a/a   b\   
+	 /       \   /       \   /       \  |  /   4   \   /   5   \   /   7   \ 
 	/    HO   \ /    BG   \ /    HW   \ | /    c    \ /    c    \ /    c    \ 
 	----------- ----------- ----------- | ----------- ----------- ----------- 
+
+    All triangles (cf. the image above)    Indices of the triangles and sides
+
 
 where
 
