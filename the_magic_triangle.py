@@ -94,7 +94,7 @@ def rotate(card, count):
 
 
 def shuffle_deck(c):
-	"""TODO"""
+	"""Shuffle the deck of cards as specified by the configuration c."""
 	return [rotate(deck[x[0]], x[1]) if x is not None else None for x in c]
 
 
